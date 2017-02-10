@@ -9,11 +9,10 @@ do
         break;
     else
         $(zenity --question --text="Você tem que selecionar um arquivo executável para continuar. Deseja tentar novamente?")
-        case $? in
-            0) ;;
-            *) exit
-               ;;
-        esac  
+        if [ $? -ne 0 ]
+        then
+            exit
+        fi 
     fi
 done
 
@@ -54,11 +53,10 @@ do
         break;
     else
         $(zenity --question --text="Você tem que selecionar um dispositivo para continuar. Deseja tentar novamente?")
-        case $? in
-            0) ;;
-            *) exit
-               ;;
-        esac  
+        if [ $? -ne 0 ]
+        then
+            exit
+        fi 
     fi
 done
 
@@ -84,12 +82,12 @@ function startApp
 function devNotFound
 {
     \$(zenity --question --text="Dispositivo não foi achado, Deseja repetir procedimento?")
-    case \$? in
-        0) searchDevice
-           ;;
-        *) exit
-           ;;
-    esac        
+    if [ \$? -eq 0 ]
+    then
+        searchDevice
+    else 
+        exit
+    fi         
     
 }
 
@@ -126,6 +124,8 @@ searchDevice
 exit
 
 End_Script
+
+$(zenity --info --text="Script gerado com sucesso! Execute-o para executar a aplicação como dispositivo")
 
 exit
 
