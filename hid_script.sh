@@ -27,18 +27,18 @@ choices=()
 #Ler cada arquivo de texto em dp/device/uevent para descobrir o nome do dispositivo
 #Read each text file in dp/device/uevent to discover device name
 #OBS: Tanto dp como devpath armazenam o caminho da pasta, não só o nome
-#OBS: the variables called dp and devpath in this foreach store the complete path of the folders, not only theirs name
+#OBS: the variables called "dp" and "devpath" in this foreach store the complete path of the folders, not only theirs name
 
 for dp in ${devpath}
 do   
-    #Obtem o nome da pasta a partir do caminho armazenado em dp
-    #Get the folder name through the path stored in dp
+    #Obtem o nome da pasta a partir do caminho armazenado em "dp"
+    #Get the folder name through the path stored in "dp"
     foldername=$(basename "$dp")
     #Lê /sys/class/hidraw/hidraw[#]/device/uevent a procura de seu Hid_name  
     #Read /sys/class/hidraw/hidraw[#]/device/uevent serching for HID_NAME
     devname=$(grep -oP 'HID_NAME=\K.*' $dp/device/uevent)
     #Vetor que atualiza a cada iteração para preencher a lista dispositivos no zenity --radiolist
-    #Array that updates each iteracion to fill the device list in zenity --radiobox
+    #Array that updates each iteration to fill the device list in zenity --radiobox
     choices=("${choices[@]}" "$mode" "$devname")
 	mode="false"    
 done
@@ -84,7 +84,7 @@ function startApp
     wine cmd
     wine net start winebus
     #transforma o caminho em linux para wine (como se fosse no windows)
-    #Transform the path in linux to wine
+    #Transform the path from linux to wine
     wine start "c:${directory#*drive_c}"
     exit
 }
@@ -112,11 +112,11 @@ function searchDevice
     #Ler cada arquivo de texto em dp/device/uevent para descobrir o nome do dispositivo
     #Read each text file in dp/device/uevent to discover device name
     #OBS: Tanto dp como devpath armazenam o caminho da pasta não só o nome
-    #OBS: the variables called dp and devpath in this foreach store the complete path of the folders, not only theirs name
+    #OBS: the variables called "dp" and "devpath" in this foreach store the complete path of the folders, not only theirs name
     for dp in \${devpath}
     do   
-        #Obtem o nome da pasta a partir do caminho armazenado em dp
-	#Get the folder name through the path stored in dp
+        #Obtem o nome da pasta a partir do caminho armazenado em "dp"
+	#Get the folder name through the path stored in "dp"
         foldername=\$(basename "$dp")
         #Lê a terceira linha de /sys/class/hidraw/hidraw[#]/device/uevent 
 	#Read /sys/class/hidraw/hidraw[#]/device/uevent serching for HID_NAME
